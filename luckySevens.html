@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+    Name: Jay Wikstrom
+    Date Created: 10/4/19
+    Most Recent revision: 10/6/19
+-->
+<html lang="en">
+    
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lucky Sevens</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+    
+
+    <script>
+    
+    function rollDice(){
+        var dice1;
+        var dice2;
+        var diceSum;
+        
+        return Math.floor(Math.random() *6) + 1;
+    }
+
+        function play(){
+            var startingBet = Number(document.forms["luckySevens"]["bet"].value);
+            var money = startingBet;
+           
+            var rolls = 0;
+            var maxWinnings = 0;
+            var rollsAtMax = 0;
+    
+    
+            if(money <=0){
+                alert("starting bet needs to be greater than $0");
+            }
+            else{
+                while (money > 0){
+                    dice1 = rollDice();
+                    dice2 = rollDice();
+                    diceSum = dice1 + dice2;
+                    rolls++;
+            
+                    if(diceSum != 7){
+                        money--;
+                    } 
+                    else {
+                        money = money + 4;
+                        if(money > maxWinnings){
+                            maxWinnings += (money-maxWinnings);
+                            rollsAtMax = rolls;
+                        }
+                    }
+                } 
+            }
+           document.getElementById("results").style.display = "block";
+	       document.getElementById("submitButton").innerText = "Play";
+	       document.getElementById("start").innerText = "$ " + startingBet;
+	       document.getElementById("rolls").innerText = rolls;
+	       document.getElementById("max").innerText = "$ " + maxWinnings;
+	       document.getElementById("highestAmount").innerText = rollsAtMax;
+	       return false;
+        }
+    
+   
+    </script>
+
+
+    <div class="container col-5">
+            <h1>Lucky Sevens</h1>
+            
+             <form name="luckySevens" onsubmit = "return play();">
+                 
+                    <div class="form-group row">
+                        
+                        <div class="col-sm-2 text-center">
+						<label for="bet">Starting Bet:</label>
+                        </div>
+                        
+						<div class="col-sm-3">
+                        <input type="number" placeholder="$ 0.00" class="form-control" id="bet" name="bet">
+						</div>
+                        
+					</div>
+                 
+                        <div class="col-3">
+                        <button type="submit" id="submitButton" >Play</button>
+                        </div>
+        
+            </form><br />
+    
+        
+        <table id="results" class="table table-striped" style="display:none;">
+            <thead>
+                <th>Results</th>
+            </thead>
+            
+            <tbody>
+                
+                <tr>
+                    <td>Starting Bet</td>
+                    <td><span id="start"></span></td>
+                </tr>
+                
+                <tr>
+                    <td>Total Rolls Before Going Broke</td>
+                    <td><span id="rolls"></span></td>
+                </tr>
+                
+                <tr>
+                    <td>Highest Amount Won</td>
+                    <td><span id="max"></span></td>
+                </tr>
+                
+                <tr>
+                    <td>Roll Count at Highest Amount Won</td>
+                    <td><span id="highestAmount"></span></td>
+                </tr>
+            
+            </tbody>
+        </table>
+      
+        </div>
+   
+            
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
